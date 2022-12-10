@@ -102,10 +102,10 @@ class data_cleaning(data_read_write):
 data_obj = data_read_write("emails.csv")
 
 data_frame = data_obj.read_csv_file("processed.csv")
-data_frame.head()
-data_frame.tail()
-data_frame.describe()
-data_frame.info()
+# data_frame.head()
+# data_frame.tail()
+# data_frame.describe()
+# data_frame.info()
 
 #data_frame.head()
 
