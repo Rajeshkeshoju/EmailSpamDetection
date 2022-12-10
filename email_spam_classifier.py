@@ -206,8 +206,8 @@ ham_stopwords = data_frame[data_frame['spam']==0].text.apply(stop_words_ratio)
 spam_stopwords = data_frame[data_frame['spam']==1].text.apply(stop_words_ratio)
 
 
-sns.histplot(ham_stopwords, norm_hist = True, label = 'Ham')
-sns.histplot(spam_stopwords,  label = 'Spam')
+sns.distplot(ham_stopwords, norm_hist = True, label = 'Ham')
+sns.distplot(spam_stopwords,  label = 'Spam')
 
 print('Ham Mean: {:.3f}'.format(ham_stopwords.values.mean()))
 print('Spam Mean: {:.3f}'.format(spam_stopwords.values.mean()))
