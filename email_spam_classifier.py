@@ -45,7 +45,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.metrics import accuracy_score
 
 #Streamlit
-pip install streamlit
+#pip install streamlit
 import streamlit as st
 
 #Parent Class for Data
