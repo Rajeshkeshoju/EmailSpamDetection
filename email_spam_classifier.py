@@ -107,11 +107,11 @@ data_frame.tail()
 data_frame.describe()
 data_frame.info()
 
-data_frame.head()
+#data_frame.head()
 
 #Visualize dataset
 # Let's see which message is the most popular ham/spam message
-data_frame.groupby('spam').describe()
+#data_frame.groupby('spam').describe()
 
 # Let's get the length of the messages
 data_frame['length'] = data_frame['text'].apply(len)
@@ -206,8 +206,8 @@ ham_stopwords = data_frame[data_frame['spam']==0].text.apply(stop_words_ratio)
 spam_stopwords = data_frame[data_frame['spam']==1].text.apply(stop_words_ratio)
 
 
-sns.distplot(ham_stopwords, norm_hist = True, label = 'Ham')
-sns.distplot(spam_stopwords,  label = 'Spam')
+sns.histplot(ham_stopwords, norm_hist = True, label = 'Ham')
+sns.histplot(spam_stopwords,  label = 'Spam')
 
 print('Ham Mean: {:.3f}'.format(ham_stopwords.values.mean()))
 print('Spam Mean: {:.3f}'.format(spam_stopwords.values.mean()))
@@ -215,7 +215,7 @@ plt.title('Distribution of Stop-word Ratio')
 plt.xlabel('Stop Word Ratio')
 plt.legend()
 
-spam_stopwords
+#spam_stopwords
 
 # Let's divide the messages into spam and ham
 ham = data_frame[data_frame['spam']==0]
@@ -319,15 +319,15 @@ cv_object = apply_embeddding_and_model()
 
 modelNB = cv_object.apply_naive_bayes(data_frame)
 
-''' lines = []
-while True:
-    line = input()
-    if line:
-        lines.append(line)
-    else:
-        break
+# ''' lines = []
+# while True:
+#     line = input()
+#     if line:
+#         lines.append(line)
+#     else:
+#         break
 
-inputMail = ' '.join(lines) '''
+# inputMail = ' '.join(lines) '''
 
 inputMail = st.text_area('Write email here')
 
