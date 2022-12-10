@@ -141,7 +141,7 @@ plt.legend()
 #plt.show()
 
 #data_frame['spam']==0
-data_frame[data_frame['spam']==0].text.values
+#data_frame[data_frame['spam']==0].text.values
 
 ham_words_length = [len(word_tokenize(title)) for title in data_frame[data_frame['spam']==0].text.values]
 spam_words_length = [len(word_tokenize(title)) for title in data_frame[data_frame['spam']==1].text.values]
