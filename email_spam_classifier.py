@@ -133,13 +133,16 @@ modelNB = cv_object.apply_naive_bayes(data_frame)
 
 inputMail = st.text_area('Write email here')
 
+mail_label = -1
 vector_model = countVectorizer.transform([inputMail])
 mail_label = cv_object.predictNB(modelNB, vector_model)
 
 
-if(mail_label):
+result = ""
+if(mail_label == 1):
     result = ":red[" + inputMail + "]"
-else:
+    
+if(mail_label == 0):
     result = ":green[" + inputMail + "]"
     
 st.markdown(result)
