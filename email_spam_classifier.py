@@ -142,10 +142,10 @@ if(len(inputMail) > 0):
 
 result = ""
 if(mail_label == 1):
-    result = f':x:<span><b>{inputMail}<b></span>'
+    result = f':x: <p><b>{inputMail}<b></p>'
     
 if(mail_label == 0):
-    result = f':white_check_mark:<span><b>{inputMail}<b></span>'
+    result = f':white_check_mark:<p><b>{inputMail}<b></p>'
     
 if(mail_label != -1):
     st.markdown(result, unsafe_allow_html=True)
