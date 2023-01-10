@@ -138,9 +138,9 @@ mail_label = cv_object.predictNB(modelNB, vector_model)
 
 
 if(mail_label):
-    st.markdown(”:red[inputMail]”)
+    st.markdown(":red[" + inputMail + "]")
 else
-    st.markdown(”:green[inputMail]”)
+    st.markdown(":green[" + inputMail + "]")
 
 # mailData = pd.DataFrame([inputMail])
 # mailData.columns = ['Mail']
