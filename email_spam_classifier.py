@@ -140,10 +140,10 @@ mail_label = cv_object.predictNB(modelNB, vector_model)
 
 result = ""
 if(mail_label == 1):
-    result = f":red[{inputMail}]"
+    result = f'<span style="color:red">{inputMail}</span>'
     
 if(mail_label == 0):
-    result = f":green[{inputMail}]"
+    result = f'<span style="color:green">{inputMail}</span>'
     
 st.markdown(result)
 
