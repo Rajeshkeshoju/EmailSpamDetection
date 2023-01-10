@@ -146,7 +146,7 @@ if(mail_label == 1):
     result_message = f':x: <span style="color:red"><b>This could be a spam email<b></span>'
     
 if(mail_label == 0):
-    result_message = f':white_check_mark: <span style="color:green"><b>This is email looks like safe one<b></span>'
+    result_message = f':white_check_mark: <span style="color:green"><b>This email looks like safe one<b></span>'
     
 if(mail_label != -1):
     st.markdown(result_message, unsafe_allow_html=True)
