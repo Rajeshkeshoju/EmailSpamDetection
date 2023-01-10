@@ -139,7 +139,7 @@ mail_label = cv_object.predictNB(modelNB, vector_model)
 
 if(mail_label):
     result = ":red[" + inputMail + "]"
-else
+else:
     result = ":green[" + inputMail + "]"
     
 st.markdown(result)
