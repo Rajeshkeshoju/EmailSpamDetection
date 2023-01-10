@@ -43,6 +43,8 @@ from sklearn.metrics import classification_report
 #pip install streamlit
 import streamlit as st
 
+st.write("Application is running...")
+
 #Parent Class for Data
 class data_read_write(object):
     def __init__(self):
