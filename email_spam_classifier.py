@@ -140,10 +140,10 @@ mail_label = cv_object.predictNB(modelNB, vector_model)
 
 result = ""
 if(mail_label == 1):
-    result = ":red[" + inputMail + "]"
+    result = f":red[{inputMail}]"
     
 if(mail_label == 0):
-    result = ":green[" + inputMail + "]"
+    result = f":green[{inputMail}]"
     
 st.markdown(result)
 
@@ -152,5 +152,3 @@ st.markdown(result)
 # mailData['Label'] = mail_label
 # mailData['Label'] = mailData['Label'].replace([0, 1], ['Not spam', 'Spam'])
 # mailData
-
-st.write()
