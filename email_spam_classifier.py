@@ -131,7 +131,7 @@ cv_object = apply_embeddding_and_model()
 
 modelNB = cv_object.apply_naive_bayes(data_frame)
 
-inputMail = st.text_area('Write email here')
+inputMail = st.text_area(label='Write email here', height=100)
 
 mail_label = -1
 
