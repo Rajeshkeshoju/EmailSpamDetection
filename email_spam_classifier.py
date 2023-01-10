@@ -60,197 +60,7 @@ class data_read_write(object):
         self.data_frame.to_csv(file_link, encoding='utf-8', index=False, header=True)
         return
 
-#Child Class for Data_read_write
-class generate_word_cloud(data_read_write):
-    def __init__(self):
-        pass
-    #Child own Function
-    def variance_column(self, data):
-        return variance(data)
-    #Polymorphism
-    def word_cloud(self, data_frame_column, output_image_file):
-        text = " ".join(review for review in data_frame_column)
-        stopwords = set(STOPWORDS)
-        stopwords.update(["subject"])
-        wordcloud = WordCloud(width = 1200, height = 800, stopwords=stopwords, max_font_size = 50, margin=0, background_color = "white").generate(text)
-        plt.imshow(wordcloud, interpolation='bilinear')
-        plt.axis("off")
-        plt.show()
-        wordcloud.to_file(output_image_file)
-        return
 
-#Child Class for Data_read_write
-class data_cleaning(data_read_write):
-    def __init__(self):
-        pass
-    def message_cleaning(self, message):
-            Test_punc_removed = [char for char in message if char not in string.punctuation]
-            Test_punc_removed_join = ''.join(Test_punc_removed)
-            Test_punc_removed_join_clean = [word for word in Test_punc_removed_join.split() if word.lower() not in stopwords.words('english')]
-            final_join = ' '.join(Test_punc_removed_join_clean)
-            return final_join
-    
-        
-    def apply_to_column(self, data_column_text):
-        data_processed = data_column_text.apply(self.message_cleaning)
-        return data_processed
-
-data_obj = data_read_write("emails.csv")
-
-data_frame = data_obj.read_csv_file("processed.csv")
-# data_frame.head()
-# data_frame.tail()
-# data_frame.describe()
-# data_frame.info()
-
-#data_frame.head()
-
-#Visualize dataset
-# Let's see which message is the most popular ham/spam message
-#data_frame.groupby('spam').describe()
-
-# Let's get the length of the messages
-data_frame['length'] = data_frame['text'].apply(len)
-data_frame['length'].max()
-
-#data_frame['length'].plot(bins=100, kind='hist') 
-#Length of characters for ham emails is more as compared to spam emails
-# sns.set(rc={'figure.figsize':(11.7,8.27)})
-# ham_messages_length =  data_frame[data_frame['spam']==0] 
-# spam_messages_length =  data_frame[data_frame['spam']==1]
-
-# ham_messages_length['length'].plot(bins=100, kind='hist',label = 'Ham') 
-# spam_messages_length['length'].plot(bins=100, kind='hist',label = 'Spam') 
-# #sns.distplot(ham_messages_length['length'], bins=10, norm_hist = True, label = 'Ham')
-# #sns.distplot(spam_messages_length['length'], bins=10, norm_hist = True, label = 'Spam')
-# plt.title('Distribution of Length of Email Text')
-# plt.xlabel('Length of Email Text')
-# plt.legend()
-
-
-#ax = sns.distplot(ham_words_length, norm_hist = True, bins = 30, label = 'Ham')
-#ax = sns.distplot(spam_words_length, norm_hist = True, bins = 30, label = 'Spam')
-
-#plt.legend()
-#plt.title('Distribution of Number of Words')
-#plt.xlabel('Number of Words')
-#plt.show()
-
-#data_frame['spam']==0
-#data_frame[data_frame['spam']==0].text.values
-
-# ham_words_length = [len(word_tokenize(title)) for title in data_frame[data_frame['spam']==0].text.values]
-# spam_words_length = [len(word_tokenize(title)) for title in data_frame[data_frame['spam']==1].text.values]
-# print(max(ham_words_length))
-# print(max(spam_words_length))
-
-#There is spike in spam emails with less number of words
-#Even when our dataset include 24 percent of spam emails out of total emails-
-#Looks like Spam emails have less words as compared to ham emails
-# sns.set(rc={'figure.figsize':(11.7,8.27)})
-# ax = sns.distplot(ham_words_length, norm_hist = True, bins = 30, label = 'Ham')
-# ax = sns.distplot(spam_words_length, norm_hist = True, bins = 30, label = 'Spam')
-# #ham_words_length.plot(bins=100, kind='hist',label = 'Ham') 
-# #spam_words_length.plot(bins=100, kind='hist',label = 'Spam')
-
-
-# plt.title('Distribution of Number of Words')
-# plt.xlabel('Number of Words')
-# plt.legend()
-                       
-# plt.show()
-
-# def mean_word_length(x):
-#     word_lengths = np.array([])
-#     for word in word_tokenize(x):
-#         word_lengths = np.append(word_lengths, len(word))
-#     return word_lengths.mean()
-
-# ham_meanword_length = data_frame[data_frame['spam']==0].text.apply(mean_word_length)
-# spam_meanword_length = data_frame[data_frame['spam']==1].text.apply(mean_word_length)
-
-
-# sns.distplot(ham_meanword_length, norm_hist = True, bins = 30, label = 'Ham')
-# sns.distplot(spam_meanword_length , norm_hist = True, bins = 30, label = 'Spam')
-# plt.title('Distribution of Mean Word Length')
-# plt.xlabel('Mean Word Length')
-# plt.legend()
-# plt.show()
-
-#There is not a significant difference for the length of words used by ham and spam emails
-
-#Checking ratio of stop words
-#Both spam and ham email contain stopwords
-#All Spam emails contain stop words with a mean of 0.281
-#All Ham emails contain stop words with a mean of 0.278
-#But we can see from the graph, spam email contain high stop words ratio as compared to ham emails.
-from nltk.corpus import stopwords
-stop_words = set(stopwords.words('english'))
-    
-    
-# def stop_words_ratio(x):
-#     num_total_words = 0
-#     num_stop_words = 0
-#     for word in word_tokenize(x):
-#         if word in stop_words:
-#             num_stop_words += 1
-#         num_total_words += 1 
-#     return num_stop_words/num_total_words
-
-
-# ham_stopwords = data_frame[data_frame['spam']==0].text.apply(stop_words_ratio)
-# spam_stopwords = data_frame[data_frame['spam']==1].text.apply(stop_words_ratio)
-
-
-# sns.distplot(ham_stopwords, norm_hist = True, label = 'Ham')
-# sns.distplot(spam_stopwords,  label = 'Spam')
-
-# print('Ham Mean: {:.3f}'.format(ham_stopwords.values.mean()))
-# print('Spam Mean: {:.3f}'.format(spam_stopwords.values.mean()))
-# plt.title('Distribution of Stop-word Ratio')
-# plt.xlabel('Stop Word Ratio')
-# plt.legend()
-
-#spam_stopwords
-
-# Let's divide the messages into spam and ham
-ham = data_frame[data_frame['spam']==0]
-spam = data_frame[data_frame['spam']==1]
-spam['length'].plot(bins=60, kind='hist') 
-ham['length'].plot(bins=60, kind='hist') 
-data_frame['Ham(0) and Spam(1)'] = data_frame['spam']
-# print( 'Spam percentage =', (len(spam) / len(data_frame) )*100,"%")
-# print( 'Ham percentage =', (len(ham) / len(data_frame) )*100,"%")
-# sns.countplot(data_frame['Ham(0) and Spam(1)'], label = "Count") 
-
-#word_cloud_obj = generate_word_cloud()
-#word_cloud_obj.word_cloud(ham["clean_text"], "ham_word_cloud.png")
-#word_cloud_obj.word_cloud(spam["clean_text"], "spam_word_cloud.png")
-#text_spam = " ".join(review for review in spam["clean_text"])
-
-# word_cloud_obj = generate_word_cloud()
-# print('Ham word cloud')
-# word_cloud_obj.word_cloud(ham["text"], "ham_word_cloud.png")
-
-# print()
-# print('Spam word cloud')
-# word_cloud_obj.word_cloud(spam["text"], "spam_word_cloud.png")
-
-data_clean_obj = data_cleaning()
-# Let's test the newly added function
-#data_frame['clean_text'] = data_frame['text'].apply(message_cleaning)
-#data_frame['clean_text'] = data_frame['text'].apply(data_clean_obj.message_cleaning)
-data_frame['clean_text'] = data_clean_obj.apply_to_column(data_frame['text'])
-
-# data_frame.head()
-
-# data_obj.data_frame.head()
-
-st.write(data_frame)
-
-data_obj.write_to_csvfile("processed_file.csv")
-
-countVectorizer = CountVectorizer()
 
 #Child Class for Data_read_write
 class apply_embeddding_and_model(data_read_write):
@@ -312,23 +122,15 @@ class apply_embeddding_and_model(data_read_write):
         #self.model_assessment(X_test, y_test, y_predict_test)
         
         return modelNB
+    
+data_obj.read_csv_file("processes_file.csv")
+countVectorizer = CountVectorizer()
 
 cv_object = apply_embeddding_and_model()
 
 modelNB = cv_object.apply_naive_bayes(data_frame)
 
-# ''' lines = []
-# while True:
-#     line = input()
-#     if line:
-#         lines.append(line)
-#     else:
-#         break
-
-# inputMail = ' '.join(lines) '''
-
 inputMail = st.text_area('Write email here')
-
 
 vector_model = countVectorizer.transform([inputMail])
 mail_label = cv_object.predictNB(modelNB, vector_model)
