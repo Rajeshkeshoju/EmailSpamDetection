@@ -137,8 +137,15 @@ vector_model = countVectorizer.transform([inputMail])
 mail_label = cv_object.predictNB(modelNB, vector_model)
 
 
-mailData = pd.DataFrame([inputMail])
-mailData.columns = ['Mail']
-mailData['Label'] = mail_label
-mailData['Label'] = mailData['Label'].replace([0, 1], ['Not spam', 'Spam'])
-mailData
+if(mail_label):
+    st.markdown(”:red[inputMail]”)
+else
+    st.markdown(”:green[inputMail]”)
+
+# mailData = pd.DataFrame([inputMail])
+# mailData.columns = ['Mail']
+# mailData['Label'] = mail_label
+# mailData['Label'] = mailData['Label'].replace([0, 1], ['Not spam', 'Spam'])
+# mailData
+
+st.write()
