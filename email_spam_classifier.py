@@ -149,7 +149,7 @@ if(mail_label == 0):
     result_message = f':white_check_mark: <span style="color:green"><b>This is email looks like safe one<b></span>'
     
 if(mail_label != -1):
-    st.markdown(result, unsafe_allow_html=True)
+    st.markdown(result_message, unsafe_allow_html=True)
     st.write("\n")
     st.write(inputMail)
 
