@@ -145,7 +145,7 @@ if(mail_label == 1):
 if(mail_label == 0):
     result = f'<span style="color:green">{inputMail}</span>'
     
-st.markdown(result)
+st.markdown(result, unsafe_allow_html=True)
 
 # mailData = pd.DataFrame([inputMail])
 # mailData.columns = ['Mail']
