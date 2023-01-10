@@ -145,7 +145,7 @@ if(mail_label == 1):
     result = f':x: <span style="color:red"><b>{inputMail}<b></span>'
     
 if(mail_label == 0):
-    result = f':white_check_mark:<span style="color:green"><b>{inputMail}<b></span>'
+    result = f':white_check_mark: <span style="color:green"><b>{inputMail}<b></span>'
     
 if(mail_label != -1):
     st.markdown(result, unsafe_allow_html=True)
