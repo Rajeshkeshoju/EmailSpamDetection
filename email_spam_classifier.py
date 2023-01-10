@@ -134,8 +134,10 @@ modelNB = cv_object.apply_naive_bayes(data_frame)
 inputMail = st.text_area('Write email here')
 
 mail_label = -1
-vector_model = countVectorizer.transform([inputMail])
-mail_label = cv_object.predictNB(modelNB, vector_model)
+
+if(len(inputMail) > 0):
+    vector_model = countVectorizer.transform([inputMail])
+    mail_label = cv_object.predictNB(modelNB, vector_model)
 
 
 result = ""
