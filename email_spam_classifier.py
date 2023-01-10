@@ -15,22 +15,15 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 # %matplotlib inline
 import string
-#from nltk.corpus import stopwords
 import os
+
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 from PIL import Image
+
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.metrics import roc_curve, auc
 from sklearn import metrics
-from sklearn import model_selection
-from sklearn import svm
-#from nltk import word_tokenize
-from sklearn.metrics import roc_auc_score
-from matplotlib import pyplot
-from sklearn.metrics import plot_confusion_matrix
 
 import nltk
 nltk.download('punkt')
@@ -44,6 +37,7 @@ from sklearn.metrics import recall_score
 from sklearn.metrics import f1_score
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import classification_report
 
 #Streamlit
 #pip install streamlit
@@ -119,17 +113,17 @@ data_frame['length'].max()
 
 #data_frame['length'].plot(bins=100, kind='hist') 
 #Length of characters for ham emails is more as compared to spam emails
-sns.set(rc={'figure.figsize':(11.7,8.27)})
-ham_messages_length =  data_frame[data_frame['spam']==0] 
-spam_messages_length =  data_frame[data_frame['spam']==1]
+# sns.set(rc={'figure.figsize':(11.7,8.27)})
+# ham_messages_length =  data_frame[data_frame['spam']==0] 
+# spam_messages_length =  data_frame[data_frame['spam']==1]
 
-ham_messages_length['length'].plot(bins=100, kind='hist',label = 'Ham') 
-spam_messages_length['length'].plot(bins=100, kind='hist',label = 'Spam') 
-#sns.distplot(ham_messages_length['length'], bins=10, norm_hist = True, label = 'Ham')
-#sns.distplot(spam_messages_length['length'], bins=10, norm_hist = True, label = 'Spam')
-plt.title('Distribution of Length of Email Text')
-plt.xlabel('Length of Email Text')
-plt.legend()
+# ham_messages_length['length'].plot(bins=100, kind='hist',label = 'Ham') 
+# spam_messages_length['length'].plot(bins=100, kind='hist',label = 'Spam') 
+# #sns.distplot(ham_messages_length['length'], bins=10, norm_hist = True, label = 'Ham')
+# #sns.distplot(spam_messages_length['length'], bins=10, norm_hist = True, label = 'Spam')
+# plt.title('Distribution of Length of Email Text')
+# plt.xlabel('Length of Email Text')
+# plt.legend()
 
 
 #ax = sns.distplot(ham_words_length, norm_hist = True, bins = 30, label = 'Ham')
@@ -143,43 +137,43 @@ plt.legend()
 #data_frame['spam']==0
 #data_frame[data_frame['spam']==0].text.values
 
-ham_words_length = [len(word_tokenize(title)) for title in data_frame[data_frame['spam']==0].text.values]
-spam_words_length = [len(word_tokenize(title)) for title in data_frame[data_frame['spam']==1].text.values]
-print(max(ham_words_length))
-print(max(spam_words_length))
+# ham_words_length = [len(word_tokenize(title)) for title in data_frame[data_frame['spam']==0].text.values]
+# spam_words_length = [len(word_tokenize(title)) for title in data_frame[data_frame['spam']==1].text.values]
+# print(max(ham_words_length))
+# print(max(spam_words_length))
 
 #There is spike in spam emails with less number of words
 #Even when our dataset include 24 percent of spam emails out of total emails-
 #Looks like Spam emails have less words as compared to ham emails
-sns.set(rc={'figure.figsize':(11.7,8.27)})
-ax = sns.distplot(ham_words_length, norm_hist = True, bins = 30, label = 'Ham')
-ax = sns.distplot(spam_words_length, norm_hist = True, bins = 30, label = 'Spam')
-#ham_words_length.plot(bins=100, kind='hist',label = 'Ham') 
-#spam_words_length.plot(bins=100, kind='hist',label = 'Spam')
+# sns.set(rc={'figure.figsize':(11.7,8.27)})
+# ax = sns.distplot(ham_words_length, norm_hist = True, bins = 30, label = 'Ham')
+# ax = sns.distplot(spam_words_length, norm_hist = True, bins = 30, label = 'Spam')
+# #ham_words_length.plot(bins=100, kind='hist',label = 'Ham') 
+# #spam_words_length.plot(bins=100, kind='hist',label = 'Spam')
 
 
-plt.title('Distribution of Number of Words')
-plt.xlabel('Number of Words')
-plt.legend()
+# plt.title('Distribution of Number of Words')
+# plt.xlabel('Number of Words')
+# plt.legend()
                        
-plt.show()
+# plt.show()
 
-def mean_word_length(x):
-    word_lengths = np.array([])
-    for word in word_tokenize(x):
-        word_lengths = np.append(word_lengths, len(word))
-    return word_lengths.mean()
+# def mean_word_length(x):
+#     word_lengths = np.array([])
+#     for word in word_tokenize(x):
+#         word_lengths = np.append(word_lengths, len(word))
+#     return word_lengths.mean()
 
-ham_meanword_length = data_frame[data_frame['spam']==0].text.apply(mean_word_length)
-spam_meanword_length = data_frame[data_frame['spam']==1].text.apply(mean_word_length)
+# ham_meanword_length = data_frame[data_frame['spam']==0].text.apply(mean_word_length)
+# spam_meanword_length = data_frame[data_frame['spam']==1].text.apply(mean_word_length)
 
 
-sns.distplot(ham_meanword_length, norm_hist = True, bins = 30, label = 'Ham')
-sns.distplot(spam_meanword_length , norm_hist = True, bins = 30, label = 'Spam')
-plt.title('Distribution of Mean Word Length')
-plt.xlabel('Mean Word Length')
-plt.legend()
-plt.show()
+# sns.distplot(ham_meanword_length, norm_hist = True, bins = 30, label = 'Ham')
+# sns.distplot(spam_meanword_length , norm_hist = True, bins = 30, label = 'Spam')
+# plt.title('Distribution of Mean Word Length')
+# plt.xlabel('Mean Word Length')
+# plt.legend()
+# plt.show()
 
 #There is not a significant difference for the length of words used by ham and spam emails
 
@@ -192,28 +186,28 @@ from nltk.corpus import stopwords
 stop_words = set(stopwords.words('english'))
     
     
-def stop_words_ratio(x):
-    num_total_words = 0
-    num_stop_words = 0
-    for word in word_tokenize(x):
-        if word in stop_words:
-            num_stop_words += 1
-        num_total_words += 1 
-    return num_stop_words/num_total_words
+# def stop_words_ratio(x):
+#     num_total_words = 0
+#     num_stop_words = 0
+#     for word in word_tokenize(x):
+#         if word in stop_words:
+#             num_stop_words += 1
+#         num_total_words += 1 
+#     return num_stop_words/num_total_words
 
 
-ham_stopwords = data_frame[data_frame['spam']==0].text.apply(stop_words_ratio)
-spam_stopwords = data_frame[data_frame['spam']==1].text.apply(stop_words_ratio)
+# ham_stopwords = data_frame[data_frame['spam']==0].text.apply(stop_words_ratio)
+# spam_stopwords = data_frame[data_frame['spam']==1].text.apply(stop_words_ratio)
 
 
-sns.distplot(ham_stopwords, norm_hist = True, label = 'Ham')
-sns.distplot(spam_stopwords,  label = 'Spam')
+# sns.distplot(ham_stopwords, norm_hist = True, label = 'Ham')
+# sns.distplot(spam_stopwords,  label = 'Spam')
 
-print('Ham Mean: {:.3f}'.format(ham_stopwords.values.mean()))
-print('Spam Mean: {:.3f}'.format(spam_stopwords.values.mean()))
-plt.title('Distribution of Stop-word Ratio')
-plt.xlabel('Stop Word Ratio')
-plt.legend()
+# print('Ham Mean: {:.3f}'.format(ham_stopwords.values.mean()))
+# print('Spam Mean: {:.3f}'.format(spam_stopwords.values.mean()))
+# plt.title('Distribution of Stop-word Ratio')
+# plt.xlabel('Stop Word Ratio')
+# plt.legend()
 
 #spam_stopwords
 
@@ -223,22 +217,22 @@ spam = data_frame[data_frame['spam']==1]
 spam['length'].plot(bins=60, kind='hist') 
 ham['length'].plot(bins=60, kind='hist') 
 data_frame['Ham(0) and Spam(1)'] = data_frame['spam']
-print( 'Spam percentage =', (len(spam) / len(data_frame) )*100,"%")
-print( 'Ham percentage =', (len(ham) / len(data_frame) )*100,"%")
-sns.countplot(data_frame['Ham(0) and Spam(1)'], label = "Count") 
+# print( 'Spam percentage =', (len(spam) / len(data_frame) )*100,"%")
+# print( 'Ham percentage =', (len(ham) / len(data_frame) )*100,"%")
+# sns.countplot(data_frame['Ham(0) and Spam(1)'], label = "Count") 
 
 #word_cloud_obj = generate_word_cloud()
 #word_cloud_obj.word_cloud(ham["clean_text"], "ham_word_cloud.png")
 #word_cloud_obj.word_cloud(spam["clean_text"], "spam_word_cloud.png")
 #text_spam = " ".join(review for review in spam["clean_text"])
 
-word_cloud_obj = generate_word_cloud()
-print('Ham word cloud')
-word_cloud_obj.word_cloud(ham["text"], "ham_word_cloud.png")
+# word_cloud_obj = generate_word_cloud()
+# print('Ham word cloud')
+# word_cloud_obj.word_cloud(ham["text"], "ham_word_cloud.png")
 
-print()
-print('Spam word cloud')
-word_cloud_obj.word_cloud(spam["text"], "spam_word_cloud.png")
+# print()
+# print('Spam word cloud')
+# word_cloud_obj.word_cloud(spam["text"], "spam_word_cloud.png")
 
 data_clean_obj = data_cleaning()
 # Let's test the newly added function
@@ -246,9 +240,9 @@ data_clean_obj = data_cleaning()
 #data_frame['clean_text'] = data_frame['text'].apply(data_clean_obj.message_cleaning)
 data_frame['clean_text'] = data_clean_obj.apply_to_column(data_frame['text'])
 
-data_frame.head()
+# data_frame.head()
 
-data_obj.data_frame.head()
+# data_obj.data_frame.head()
 
 data_obj.write_to_csvfile("processed_file.csv")
 
@@ -269,8 +263,8 @@ class apply_embeddding_and_model(data_read_write):
 
     def model_assessment(self, X_test, y_test, predicted_class):
 
-        print(y_test)
-        print(predicted_class)
+#         print(y_test)
+#         print(predicted_class)
 
         cm = confusion_matrix(y_test, predicted_class)
         
@@ -311,7 +305,7 @@ class apply_embeddding_and_model(data_read_write):
         y_predict_test = modelNB.predict(test_vector_model)
 
         #Evaluating Model
-        self.model_assessment(X_test, y_test, y_predict_test)
+        #self.model_assessment(X_test, y_test, y_predict_test)
         
         return modelNB
 
