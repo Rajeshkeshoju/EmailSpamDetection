@@ -123,7 +123,7 @@ class apply_embeddding_and_model(data_read_write):
         
         return modelNB
     
-data_obj = data_read_write("emails.csv")
+data_frame = data_obj = data_read_write("emails.csv")
 data_obj.read_csv_file("processes_file.csv")
 countVectorizer = CountVectorizer()
 
