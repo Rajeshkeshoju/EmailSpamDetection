@@ -123,8 +123,8 @@ class apply_embeddding_and_model(data_read_write):
         
         return modelNB
     
-data_obj = data_read_write("processes_file.csv")
-data_frame = data_obj.read_csv_file("processes_file.csv")
+data_obj = data_read_write("processed_file.csv")
+data_frame = data_obj.read_csv_file("processed_file.csv")
 countVectorizer = CountVectorizer()
 
 cv_object = apply_embeddding_and_model()
