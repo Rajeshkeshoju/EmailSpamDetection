@@ -246,6 +246,8 @@ data_frame['clean_text'] = data_clean_obj.apply_to_column(data_frame['text'])
 
 # data_obj.data_frame.head()
 
+st.write(data_frame)
+
 data_obj.write_to_csvfile("processed_file.csv")
 
 countVectorizer = CountVectorizer()
