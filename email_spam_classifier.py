@@ -43,7 +43,7 @@ from sklearn.metrics import classification_report
 #pip install streamlit
 import streamlit as st
 
-st.write("Application is running...")
+st.write("EMAIL SPAM DETECTION")
 
 #Parent Class for Data
 class data_read_write(object):
